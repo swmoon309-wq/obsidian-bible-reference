@@ -232,7 +232,11 @@ export abstract class BaseVerseFormatter {
 
     switch (this.settings.verseNumberFormatting) {
       case BibleVerseNumberFormat.Period:
-        return verseNumberFormatted + '. '
+        // Use \. to prevent Obsidian from treating "4. text" as a markdown
+        // ordered list item, which would renumber non-consecutive verses.
+        return verseNumLink
+          ? verseNumberFormatted + '. '
+          : verseNumStr2 + '\\. '
       case BibleVerseNumberFormat.PeriodParenthesis:
         return verseNumberFormatted + '.) '
       case BibleVerseNumberFormat.Parenthesis:

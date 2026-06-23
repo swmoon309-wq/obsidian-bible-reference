@@ -36,15 +36,22 @@ export const getSuggestionsFromQuery = async (
     return []
   }
 
-  const selectedBibleVersion = getBibleVersion(
-    translation ? translation : settings.bibleVersion
-  )
+  const translationLower = translation?.toLowerCase() ?? ''
+  const resolvedKey = translationLower ? getBibleVersion(translationLower).key : ''
+  const effectiveVersion =
+    resolvedKey && resolvedKey === translationLower ? resolvedKey : settings.bibleVersion
+  const selectedBibleVersion = getBibleVersion(effectiveVersion)
   const bookNameLanguageCode =
     settings.bookNameLanguage === BookNameLanguageEnum.English
       ? 'en'
       : (selectedBibleVersion?.code ?? 'en')
   const bookName = getFullBookName(rawBookName, bookNameLanguageCode)
   console.debug('selected bookName', bookName)
+
+  const effectiveSettings =
+    effectiveVersion !== settings.bibleVersion
+      ? { ...settings, bibleVersion: effectiveVersion }
+      : settings
 
   // Use splitBibleReference for consistent parsing and validation
   let verseRef
@@ -65,9 +72,8 @@ export const getSuggestionsFromQuery = async (
     ranges,
   } = verseRef
 
-  // todo get bibleVersion and language from settings
   const suggestingVerse = new VerseSuggesting(
-    settings,
+    effectiveSettings,
     bookName,
     chapterNumber,
     verseNumber,

@@ -587,6 +587,7 @@ export const BibleVersionCollectionKorean = [
     key: 'rnksv',
     versionName: 'RNKSV (새번역)',
     language: 'Korean',
+    code: 'ko',
     apiSource: BibleAPISourceCollection.bollsLife,
   },
 ]
