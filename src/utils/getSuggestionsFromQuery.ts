@@ -37,9 +37,13 @@ export const getSuggestionsFromQuery = async (
   }
 
   const translationLower = translation?.toLowerCase() ?? ''
-  const resolvedKey = translationLower ? getBibleVersion(translationLower).key : ''
+  const resolvedKey = translationLower
+    ? getBibleVersion(translationLower).key
+    : ''
   const effectiveVersion =
-    resolvedKey && resolvedKey === translationLower ? resolvedKey : settings.bibleVersion
+    resolvedKey && resolvedKey === translationLower
+      ? resolvedKey
+      : settings.bibleVersion
   const selectedBibleVersion = getBibleVersion(effectiveVersion)
   const bookNameLanguageCode =
     settings.bookNameLanguage === BookNameLanguageEnum.English
