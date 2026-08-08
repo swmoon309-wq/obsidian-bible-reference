@@ -266,7 +266,12 @@ export class Reference implements IReference {
     const exactMatch = books.find((book) => {
       const exactNames =
         book?.startNumber && book.startNumber > 0
-          ? [book.fullName] // numbered books resolve their bare names via the ordinal pass
+          ? // Numbered books resolve their bare radical ("Peter", "John") via
+            // the ordinal pass - it is ambiguous which sibling it means. Names
+            // a translation's own catalog already disambiguates without an
+            // ordinal prefix (Korean "요한일서" fuses the "1" into the word)
+            // carry no such ambiguity and are safe to match here.
+            [book.fullName, ...(book.disambiguatedNames ?? [])]
           : [book.fullName, book.name, ...book.abbreviations]
       return exactNames.map(Reference.normalizeBookName).indexOf(lowerName) > -1
     })

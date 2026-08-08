@@ -41,6 +41,7 @@ export type BookWithAbbreviations = OriginalBookType & {
   name: string
   fullName: string
   abbreviations: string[]
+  disambiguatedNames?: string[]
 }
 
 const getLanguageToBookWithAbbreviationsDict = (): Map<

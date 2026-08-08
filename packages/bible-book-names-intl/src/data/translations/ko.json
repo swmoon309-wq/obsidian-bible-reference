@@ -43,32 +43,32 @@
   "9": {
     "name": "사무엘상",
     "shortNames": ["삼상"],
-    "startNumber": 1
+    "startNumber": 0
   },
   "10": {
     "name": "사무엘하",
     "shortNames": ["삼하"],
-    "startNumber": 2
+    "startNumber": 0
   },
   "11": {
     "name": "열왕기상",
     "shortNames": ["왕상"],
-    "startNumber": 1
+    "startNumber": 0
   },
   "12": {
     "name": "열왕기하",
     "shortNames": ["왕하"],
-    "startNumber": 2
+    "startNumber": 0
   },
   "13": {
     "name": "역대상",
     "shortNames": ["대상"],
-    "startNumber": 1
+    "startNumber": 0
   },
   "14": {
     "name": "역대하",
     "shortNames": ["대하"],
-    "startNumber": 2
+    "startNumber": 0
   },
   "15": {
     "name": "에스라",
@@ -228,12 +228,12 @@
   "46": {
     "name": "고린도전서",
     "shortNames": ["고전"],
-    "startNumber": 1
+    "startNumber": 0
   },
   "47": {
     "name": "고린도후서",
     "shortNames": ["고후"],
-    "startNumber": 2
+    "startNumber": 0
   },
   "48": {
     "name": "갈라디아서",
@@ -258,22 +258,22 @@
   "52": {
     "name": "데살로니가전서",
     "shortNames": ["살전"],
-    "startNumber": 1
+    "startNumber": 0
   },
   "53": {
     "name": "데살로니가후서",
     "shortNames": ["살후"],
-    "startNumber": 2
+    "startNumber": 0
   },
   "54": {
     "name": "디모데전서",
     "shortNames": ["딤전"],
-    "startNumber": 1
+    "startNumber": 0
   },
   "55": {
     "name": "디모데후서",
     "shortNames": ["딤후"],
-    "startNumber": 2
+    "startNumber": 0
   },
   "56": {
     "name": "디도서",
@@ -298,27 +298,27 @@
   "60": {
     "name": "베드로전서",
     "shortNames": ["벧전"],
-    "startNumber": 1
+    "startNumber": 0
   },
   "61": {
     "name": "베드로후서",
     "shortNames": ["벧후"],
-    "startNumber": 2
+    "startNumber": 0
   },
   "62": {
     "name": "요한일서",
     "shortNames": ["요일"],
-    "startNumber": 1
+    "startNumber": 0
   },
   "63": {
     "name": "요한이서",
     "shortNames": ["요이"],
-    "startNumber": 2
+    "startNumber": 0
   },
   "64": {
     "name": "요한삼서",
     "shortNames": ["요삼"],
-    "startNumber": 3
+    "startNumber": 0
   },
   "65": {
     "name": "유다서",

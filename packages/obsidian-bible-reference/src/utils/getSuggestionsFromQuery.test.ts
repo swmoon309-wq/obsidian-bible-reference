@@ -33,3 +33,46 @@ describe('getSuggestionsFromQuery with a Korean single-character short name', ()
     }
   )
 })
+
+// Korean numbered books fuse the ordinal into the word itself ("요한일서",
+// not "1 요한서"), but the cross-language book merge borrowed English's
+// startNumber for every language, which routed these into the
+// ordinal-prefixed matcher and required a leading "1" no Korean speaker
+// types. bible-book-names-intl's per-book startNumber is now 0 for these, and
+// bible-reference-toolkit's exact-match pass accepts a translation's own
+// disambiguated names for numbered books.
+describe('getSuggestionsFromQuery with a Korean numbered book', () => {
+  test.each([
+    '요한일서 3:16',
+    '요일 3:16',
+    '사무엘상 1:1',
+    '삼상 1:1',
+    '고린도전서 13:4',
+  ])('resolves to a suggestion for %s', async (query) => {
+    const suggestions = await getSuggestionsFromQuery(
+      query,
+      DEFAULT_SETTINGS,
+      undefined,
+      true
+    )
+    expect(suggestions.length).toBeGreaterThan(0)
+  })
+})
+
+// The numbered-book fix must not let English's ambiguous bare radicals
+// ("John", "Peter") skip the ordinal requirement - "John" alone must still
+// resolve to the Gospel, not silently default to 1 John.
+describe('getSuggestionsFromQuery with English numbered books stays unambiguous', () => {
+  test.each(['John 3:16', '1 John 1:1', '1 Peter 1:1'])(
+    'resolves to a suggestion for %s',
+    async (query) => {
+      const suggestions = await getSuggestionsFromQuery(
+        query,
+        DEFAULT_SETTINGS,
+        undefined,
+        true
+      )
+      expect(suggestions.length).toBeGreaterThan(0)
+    }
+  )
+})

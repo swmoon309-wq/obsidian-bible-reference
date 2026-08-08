@@ -46,17 +46,36 @@ const getAllBibleBooksInAllSupportedLanguages = (): BookWithAbbreviations[] => {
       // numbered books only resolved through the per-translation lookup.
       startNumber,
       abbreviations: [] as string[], // this will be the list of abbreviations and names for the book in all languages
+      // Names/abbreviations from a translation whose own catalog needs no
+      // ordinal prefix for this book, e.g. Korean's "요한일서" fuses the "1"
+      // into the word itself instead of writing "1 요한서". The cross-language
+      // merge above always borrows English's startNumber, which would
+      // otherwise route these straight into the ordinal-prefixed matcher and
+      // require a leading "1" no Korean speaker types. Collected separately so
+      // the exact-match pass can accept them without reopening the ambiguity
+      // that excluding bare radicals like English "Peter" is there to prevent.
+      disambiguatedNames: [] as string[],
     }
 
     LanguageToBookWithAbbreviationsDict.forEach((books) => {
       // in different translations,
       const theBook = books[i]
-      const { abbreviations, name } = theBook
+      const {
+        abbreviations,
+        name,
+        startNumber: translationStartNumber,
+      } = theBook
 
       // concat all names from different translations
       book['abbreviations'] = [
         ...book['abbreviations'].concat(...abbreviations, name),
       ]
+
+      if (!translationStartNumber || translationStartNumber <= 0) {
+        book['disambiguatedNames'] = [
+          ...(book['disambiguatedNames'] ?? []).concat(...abbreviations, name),
+        ]
+      }
     })
     allBibleBooksInAllSupportedLanguages.push(book)
   }
