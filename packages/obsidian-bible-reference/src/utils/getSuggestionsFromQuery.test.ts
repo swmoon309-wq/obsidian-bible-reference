@@ -14,3 +14,22 @@ describe('getSuggestionsFromQuery with a book that does not exist', () => {
     expect(await getSuggestionsFromQuery(query, DEFAULT_SETTINGS)).toEqual([])
   })
 })
+
+// BOOK_WORD_HEAD required either 2+ characters or a single letter followed by
+// a period, so Korean's single-syllable short names ("창", "시", "요"), which
+// carry no trailing period, never matched. BOOK_NAME now has a dedicated
+// Hangul alternative alongside the existing Han one.
+describe('getSuggestionsFromQuery with a Korean single-character short name', () => {
+  test.each(['창 1:1', '시 23:1', '요1 3:16'])(
+    'resolves to a suggestion for %s',
+    async (query) => {
+      const suggestions = await getSuggestionsFromQuery(
+        query,
+        DEFAULT_SETTINGS,
+        undefined,
+        true
+      )
+      expect(suggestions.length).toBeGreaterThan(0)
+    }
+  )
+})

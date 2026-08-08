@@ -52,10 +52,13 @@ const BOOK_WORD_TAIL = `${BOOK_CHAR}{1,100}\\.?`
  * A whole book name: one word, or several separated by whitespace, so
  * "Song of Solomon" survives as one unit. The separator is whitespace and the
  * words are letters, two disjoint sets, so the repetition cannot backtrack
- * catastrophically; the {0,5} bound caps it in any case. Han script has no word
- * separators and stays its own alternative.
+ * catastrophically; the {0,5} bound caps it in any case. Han and Hangul scripts
+ * have no word separators and stay their own alternative - this also covers
+ * Korean's single-syllable short names ("창", "시", "요"), which carry no
+ * trailing period and would otherwise be blocked by BOOK_WORD_HEAD's
+ * two-character floor.
  */
-const BOOK_NAME = `(?:${BOOK_WORD_HEAD}(?:\\s+${BOOK_WORD_TAIL}){0,5}|\\p{Script=Han}{1,})`
+const BOOK_NAME = `(?:${BOOK_WORD_HEAD}(?:\\s+${BOOK_WORD_TAIL}){0,5}|\\p{Script=Han}{1,}|\\p{Script=Hangul}{1,})`
 
 /**
  * The ordinal a numbered book starts with, optionally with the period German
